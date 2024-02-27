@@ -1,0 +1,109 @@
+--таблица users:
+create table users
+(
+    id        bigserial    not null
+        constraint users_pk
+            primary key,
+    username  varchar(225) not null,
+    password  varchar(20)  not null,
+    email     varchar(20)  not null,
+    firstname varchar(20)  not null,
+    lastname  varchar(20)  not null,
+    gender    varchar(10)  not null,
+    age       integer      not null,
+    city      varchar(20)  not null
+);
+
+-- таблица interest
+create table interest
+(
+    id       integer not null
+        constraint interest_pk
+            primary key,
+    user_id  integer
+        constraint interest_users_id_fk
+            references users
+            on update cascade on delete cascade,
+    interest text    not null
+);
+
+--таблица messages
+create table messages
+(
+    id          integer   not null
+        constraint messages_pk
+            primary key,
+    sender_id   integer   not null
+        constraint messages_users_id_fk
+            references users
+            on update cascade on delete cascade,
+    reciever_id integer   not null
+        constraint messages_users_id_fk2
+            references users,
+    messages    text,
+    timestamp   timestamp not null
+);
+
+--таблица likes
+
+create table likes
+(
+    id            bigserial not null
+        constraint likes_pk
+            primary key,
+    user_id       integer   not null
+        constraint likes_users_id_fk
+            references users
+            on update cascade on delete cascade,
+    liked_user_id integer   not null
+        constraint likes_users_id_fk2
+            references users
+);
+
+--таблица blocks
+
+create table blocks
+(
+    id               bigserial not null
+        constraint blocks_pk
+            primary key,
+    user_id          integer   not null
+        constraint blocks_users_id_fk
+            references users,
+    blocked_users_id integer   not null
+        constraint blocks_users_id_fk2
+            references users
+);
+
+--таблица roles
+
+create table roles
+(
+    id   bigserial   not null
+        constraint roles_pk
+            primary key,
+    role varchar(50) not null
+);
+
+таблица user_roles
+
+create table user_roles
+(
+    id      bigserial not null
+        constraint user_roles_pk
+            primary key,
+    user_id integer   not null
+        constraint user_roles_users_id_fk
+            references users
+            on update cascade on delete cascade,
+    role_id integer   not null
+        constraint user_roles_roles_id_fk
+            references roles
+            on update cascade on delete cascade
+);
+
+В таблице "Пользователи" связь один к многим с таблицей "Интересы" (один пользователь имеет много интересов).
+В таблице "Сообщения" связь многие ко многим с таблицей "Пользователи" (один пользователь может отправлять и получать много сообщений).
+В таблице "Лайки" связь многие ко многим с таблицей "Пользователи" (пользователь может лайкать много других пользователей и быть лайкнутым ими).
+В таблице "Блокировки" связь многие ко многим с таблицей "Пользователи" (пользователь может блокировать много других пользователей и быть заблокированным ими).
+В таблице "Пользователи и роли" связь один к одному с таблицами "Пользователи" и "Роли" (каждый пользователь имеет одну роль, каждая роль принадлежит одному пользователю).
