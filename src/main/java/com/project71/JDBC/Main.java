@@ -7,11 +7,8 @@ public class Main {
     public static void main(String[] args) {
         UserRepository userRepository= new UserRepository();
         User user=new User();
-        user.setUsername("Dima");
-        user.setPassword("4321");
-        user.setEmail("dima@mail.ru");
-        user.setAge(24);
-        user.setId(2L);
-        System.out.println(userRepository.updateUser(user));
+        System.out.println(userRepository.readUser(1L));
+        System.out.println("-----------------------------");
+        System.out.println(userRepository.findALL());
     }
 }
