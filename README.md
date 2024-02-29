@@ -1,3 +1,3 @@
 ## Фотография моего проекта для базы данных:
 
-![img.png](src/main/java/com/project71/img.png)
+![(![img_1.png](img_1.png))]

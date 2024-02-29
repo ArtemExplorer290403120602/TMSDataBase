@@ -17,7 +17,7 @@ create table users
 -- таблица interest
 create table interest
 (
-    id       integer not null
+    id       bigserial not null
         constraint interest_pk
             primary key,
     user_id  integer
@@ -30,7 +30,7 @@ create table interest
 --таблица messages
 create table messages
 (
-    id          integer   not null
+    id          bigserial   not null
         constraint messages_pk
             primary key,
     sender_id   integer   not null
@@ -75,16 +75,6 @@ create table blocks
             references users
 );
 
---таблица roles
-
-create table roles
-(
-    id   bigserial   not null
-        constraint roles_pk
-            primary key,
-    role varchar(50) not null
-);
-
 таблица user_roles
 
 create table user_roles
@@ -96,10 +86,11 @@ create table user_roles
         constraint user_roles_users_id_fk
             references users
             on update cascade on delete cascade,
-    role_id integer   not null
-        constraint user_roles_roles_id_fk
-            references roles
-            on update cascade on delete cascade
+            alter table user_roles
+                rename column role_id to role;
+
+            alter table user_roles
+                alter column role type varchar(20) using role::varchar(20);
 );
 
 В таблице "Пользователи" связь один к многим с таблицей "Интересы" (один пользователь имеет много интересов).
