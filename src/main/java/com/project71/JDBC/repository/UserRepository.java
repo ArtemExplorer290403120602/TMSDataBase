@@ -10,6 +10,7 @@ import java.sql.SQLException;
 public class UserRepository {
     private Connection connection = null;
     private static final String CREATE_USER = "INSERT INTO users(id,username,password,email,firstname,lastname,gender,age,city)" + "values(default,?,?,?,?,?,?,?,?)";
+    private static final String DELETE_USER = "DELETE FROM users WHERE id = ?";
 
     public UserRepository() {
         try {
@@ -38,4 +39,17 @@ public class UserRepository {
         }
         return false;
     }
+
+    public boolean deleteUser(Long id) {
+        try {
+            PreparedStatement statement = connection.prepareStatement(DELETE_USER);
+            statement.setLong(1, id);
+            return statement.executeUpdate() == 1;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+
 }
