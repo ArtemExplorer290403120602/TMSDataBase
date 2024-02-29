@@ -12,6 +12,10 @@ create table users
     gender    varchar(10)  not null,
     age       integer      not null,
     city      varchar(20)  not null
+    alter table users
+        add "create" timestamp with time zone;
+    alter table users
+        rename column "create" to created;
 );
 
 -- таблица interest
