@@ -10,17 +10,8 @@ public class Main {
     public static void main(String[] args) {
         UserRepository userRepository = new UserRepository();
         User user = new User();
-        user.setId(2L);
-        user.setUsername("Polina");
-        user.setPassword("1");
-        user.setEmail("2");
-        user.setFirstname("1");
-        user.setLastname("2");
-        user.setGender("m");
-        user.setAge(17);
-        user.setCity("b");
-        System.out.println(userRepository.updateUser(user));
 
-        //System.out.println(userRepository.deleteUser(2L));
+        //System.out.println(userRepository.findById(1L));
+        System.out.println(userRepository.findALL());
     }
 }
