@@ -10,18 +10,17 @@ public class Main {
     public static void main(String[] args) {
         UserRepository userRepository = new UserRepository();
         User user = new User();
+        user.setId(2L);
+        user.setUsername("Polina");
+        user.setPassword("1");
+        user.setEmail("2");
+        user.setFirstname("1");
+        user.setLastname("2");
+        user.setGender("m");
+        user.setAge(17);
+        user.setCity("b");
+        System.out.println(userRepository.updateUser(user));
 
-        user.setUsername("anna1234");
-        user.setPassword("12345");
-        user.setEmail("anna@mail.ru");
-        user.setFirstname("Anna");
-        user.setLastname("Bariluk");
-        user.setGender("woman");
-        user.setAge(21);
-        user.setCity("Moscow");
-        user.setCreate(Timestamp.valueOf(LocalDateTime.now()));
-        System.out.println(userRepository.createUser(user));
-
-        System.out.println(userRepository.deleteUser(2L));
+        //System.out.println(userRepository.deleteUser(2L));
     }
 }

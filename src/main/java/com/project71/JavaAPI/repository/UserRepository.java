@@ -38,4 +38,18 @@ public class UserRepository {
         }
         return false;
     }
+
+    public boolean updateUser(User user){
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.merge(user);
+            entityManager.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            System.out.println(e);
+        }
+        return false;
+    }
+
 }
