@@ -11,6 +11,7 @@ public class UserRepository {
     private Connection connection = null;
     private static final String CREATE_USER = "INSERT INTO users(id,username,password,email,firstname,lastname,gender,age,city)" + "values(default,?,?,?,?,?,?,?,?)";
     private static final String DELETE_USER = "DELETE FROM users WHERE id = ?";
+    private static final String UPDATE_USER = "UPDATE users SET username=?, password=?, email=?, age=? WHERE id=?";
 
     public UserRepository() {
         try {
@@ -51,5 +52,19 @@ public class UserRepository {
         return false;
     }
 
+    public boolean updateUser(User user) {
+        try {
+            PreparedStatement statement = connection.prepareStatement(UPDATE_USER);
+            statement.setString(1, user.getUsername());
+            statement.setString(2, user.getPassword());
+            statement.setString(3, user.getEmail());
+            statement.setInt(4, user.getAge());
+            statement.setLong(5, user.getId());
+            return statement.executeUpdate() == 1;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
 
 }
